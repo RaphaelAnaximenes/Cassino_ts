@@ -7,13 +7,12 @@ class User<U extends UserData> {
     constructor(public name: string, public balance: number) {
     }
 
-    static AddMoney<U extends UserData>(player: U, value: number) {
+    static addMoney<U extends UserData>(player: U, value: number) {
         if (player.wallet <= 0 || player.wallet < value) {
             throw new Error("Not enough money bro, srry :/");
         } 
-        
+        player.wallet -= value;
         player.balance += value;
-        console.log(`${player.name} added ${value} to wallet`);
     }
 
     setBet(betAmount: number): void {
