@@ -1,8 +1,11 @@
 import User from '../entities/Player/User';
 import UserData from "../protocols/userData"
+import { InvalidBetAmountException } from './../errors/invalid-bet-exception';
+import {NoFundsException} from "../errors/no-funds-exception"
 
 
-describe('User tests', () => {
+
+describe('User class tests', () => {
     let user: User<UserData>;
 
     beforeEach(() => {
@@ -23,15 +26,14 @@ describe('User tests', () => {
     });
     
     it('ensure that a valid bet is acceptable (and charged from wallet)', () => {
-        user.setBet(user, 50);
+        expect(() => user.setBet(user, 50)).not.toThrow();
         expect(user.balance).toEqual(50); 
         expect(user.currentBet).toEqual(50);
-        expect(() => user.setBet(user, 50)).not.toThrow();
     });
 
     it('ensure that throws an error for an invalid bet amounts', () => {
-        expect(() => user.setBet(user, 200)).toThrow('not enough credits');
-        expect(() => user.setBet(user, 0)).toThrow('Invalid bet amount');
+        expect(() => user.setBet(user, 200)).toThrow(new NoFundsException());
+        expect(() => user.setBet(user, 0)).toThrow(new InvalidBetAmountException());
     });
 
 
