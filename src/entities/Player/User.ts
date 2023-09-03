@@ -2,7 +2,7 @@ import UserData from "../../protocols/userData"
 
 class User<U extends UserData> {
     wallet: number = 50;
-    currentBet?: number;
+    currentBet: number = 0;
 
     constructor(public name: string, public balance: number) {
     }
@@ -15,14 +15,16 @@ class User<U extends UserData> {
         player.balance += value;
     }
 
-    setBet(betAmount: number): void {
-        if (betAmount <= 0 || betAmount > this.balance) {
-            throw new Error("Invalid bet amount");
-        }
-        if(!betAmount) throw new Error("Invalid bet amount");
-        
-        this.currentBet = betAmount;
-        console.log(`${this.name} set a bet of ${betAmount}`);
+    static setBet<U extends UserData>(player: U, betAmount: number){
+    player.currentBet = betAmount;
+    
+    if (player.balance < player.currentBet) {
+        throw new Error("not enough credits");
+    }
+    if (!betAmount || betAmount <= 0) {
+        throw new Error("Invalid bet amount");
+    }
+    player.balance -= betAmount;
     }
 
 }
