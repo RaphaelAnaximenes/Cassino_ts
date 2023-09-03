@@ -7,7 +7,7 @@ class User<U extends UserData> {
     constructor(public name: string, public balance: number) {
     }
 
-    static addMoney<U extends UserData>(player: U, value: number) {
+    addMoney<U extends UserData>(player: U, value: number) {
         if (player.wallet <= 0 || player.wallet < value) {
             throw new Error("Not enough money bro, srry :/");
         } 
@@ -15,7 +15,7 @@ class User<U extends UserData> {
         player.balance += value;
     }
 
-    static setBet<U extends UserData>(player: U, betAmount: number){
+    setBet<U extends UserData>(player: U, betAmount: number){
     player.currentBet = betAmount;
     
     if (player.balance < player.currentBet) {
