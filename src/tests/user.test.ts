@@ -26,9 +26,10 @@ describe('User tests', () => {
         user.setBet(user, 50);
         expect(user.balance).toEqual(50); 
         expect(user.currentBet).toEqual(50);
+        expect(() => user.setBet(user, 50)).not.toThrow();
     });
 
-    it('should throw an error for an invalid bet amounts', () => {
+    it('ensure that throws an error for an invalid bet amounts', () => {
         expect(() => user.setBet(user, 200)).toThrow('not enough credits');
         expect(() => user.setBet(user, 0)).toThrow('Invalid bet amount');
     });
