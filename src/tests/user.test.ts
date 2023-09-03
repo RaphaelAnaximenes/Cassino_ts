@@ -17,15 +17,20 @@ describe('User tests', () => {
 
     it('ensure that addMoney methods increase the User\'s wallet balance \(and charge for it\)',
      () => {
-        User.addMoney(user, 50);
+        user.addMoney(user, 50);
         expect(user.balance).toEqual(150); 
         expect(user.wallet).toEqual(0); 
     });
     
     it('ensure that a valid bet is acceptable (and charged from wallet)', () => {
-        User.setBet(user, 50);
+        user.setBet(user, 50);
         expect(user.balance).toEqual(50); 
         expect(user.currentBet).toEqual(50);
+    });
+
+    it('should throw an error for an invalid bet amounts', () => {
+        expect(() => user.setBet(user, 200)).toThrow('not enough credits');
+        expect(() => user.setBet(user, 0)).toThrow('Invalid bet amount');
     });
 
 
