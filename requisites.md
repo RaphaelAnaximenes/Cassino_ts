@@ -1,8 +1,8 @@
 1 User 
  
-A a User has a name, a balance and a wallet that starts with 50 bucks ✔
-B a User can insert more money from the Wallet ✔
-C a User can setBet into the betPot from the Wallet ?
+A a User has a name, a balance and a wallet that starts with 50 bucks ✔ T
+B a User can insert more money from the Wallet ✔ T
+C a User can setBet into the betPot from the balance ✔ T
 
 
 2 Game
